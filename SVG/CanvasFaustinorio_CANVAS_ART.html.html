@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTML5 Canvas Graphical Arts - Animal Heads</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; padding: 20px; text-align: center; }
+  h1 { font-size: 22px; }
+  .gallery { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; max-width: 920px; margin: 0 auto; }
+  figure { margin: 0; width: 200px; }
+  figcaption { font-size: 14px; font-weight: bold; margin-top: 6px; }
+  canvas { display: block; border-radius: 16px; }
+</style>
+</head>
+<body>
+<h1>HTML5 Canvas Graphical Arts: Animal Heads</h1>
+
+<div class="gallery">
+  <figure><canvas id="c1" width="200" height="200"></canvas><figcaption>1. Cat</figcaption></figure>
+  <figure><canvas id="c2" width="200" height="200"></canvas><figcaption>2. Dog</figcaption></figure>
+  <figure><canvas id="c3" width="200" height="200"></canvas><figcaption>3. Bunny</figcaption></figure>
+  <figure><canvas id="c4" width="200" height="200"></canvas><figcaption>4. Bear</figcaption></figure>
+  <figure><canvas id="c5" width="200" height="200"></canvas><figcaption>5. Fox</figcaption></figure>
+  <figure><canvas id="c6" width="200" height="200"></canvas><figcaption>6. Panda</figcaption></figure>
+  <figure><canvas id="c7" width="200" height="200"></canvas><figcaption>7. Pig</figcaption></figure>
+  <figure><canvas id="c8" width="200" height="200"></canvas><figcaption>8. Owl</figcaption></figure>
+</div>
+
+<script>
+// ---------- helper functions ----------
+function ctx(id) { return document.getElementById(id).getContext('2d'); }
+function rect(c, x, y, w, h, color, r) {
+  c.fillStyle = color; c.beginPath(); c.roundRect(x, y, w, h, r || 0); c.fill();
+}
+function circle(c, x, y, r, color) {
+  c.fillStyle = color; c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.fill();
+}
+function oval(c, x, y, rx, ry, color, rot) {
+  c.fillStyle = color; c.beginPath(); c.ellipse(x, y, rx, ry, rot || 0, 0, Math.PI * 2); c.fill();
+}
+function poly(c, pts, color) {
+  c.fillStyle = color; c.beginPath(); c.moveTo(pts[0][0], pts[0][1]);
+  for (let i = 1; i < pts.length; i++) c.lineTo(pts[i][0], pts[i][1]);
+  c.closePath(); c.fill();
+}
+function line(c, x1, y1, x2, y2, color, w) {
+  c.strokeStyle = color; c.lineWidth = w; c.lineCap = 'round';
+  c.beginPath(); c.moveTo(x1, y1); c.lineTo(x2, y2); c.stroke();
+}
+function eyes(c, y, gap, r, color) {
+  circle(c, 100 - gap, y, r, color); circle(c, 100 + gap, y, r, color);
+  circle(c, 100 - gap + r * 0.3, y - r * 0.3, r * 0.35, '#fff');
+  circle(c, 100 + gap + r * 0.3, y - r * 0.3, r * 0.35, '#fff');
+}
+
+// ---------- 1. Cat ----------
+(function () {
+  const c = ctx('c1');
+  rect(c, 0, 0, 200, 200, '#e8e0ff');
+  poly(c, [[48, 92], [55, 28], [98, 62]], '#f4a259');
+  poly(c, [[152, 92], [145, 28], [102, 62]], '#f4a259');
+  poly(c, [[58, 78], [60, 44], [86, 64]], '#ffb3c1');
+  poly(c, [[142, 78], [140, 44], [114, 64]], '#ffb3c1');
+  circle(c, 100, 112, 58, '#f4a259');
+  line(c, 100, 60, 100, 78, '#d9822b', 6); line(c, 84, 62, 87, 78, '#d9822b', 6); line(c, 116, 62, 113, 78, '#d9822b', 6);
+  oval(c, 78, 105, 13, 15, '#fff'); oval(c, 122, 105, 13, 15, '#fff');
+  oval(c, 80, 107, 6, 11, '#2b2d42'); oval(c, 120, 107, 6, 11, '#2b2d42');
+  poly(c, [[92, 126], [108, 126], [100, 136]], '#ff7b9c');
+  c.strokeStyle = '#2b2d42'; c.lineWidth = 3; c.lineCap = 'round';
+  c.beginPath(); c.moveTo(100, 136); c.lineTo(100, 142); c.stroke();
+  c.beginPath(); c.arc(90, 142, 10, 0, Math.PI * 0.8); c.stroke();
+  c.beginPath(); c.arc(110, 142, 10, Math.PI * 0.2, Math.PI); c.stroke();
+  line(c, 62, 132, 30, 126, '#2b2d42', 2); line(c, 62, 140, 30, 146, '#2b2d42', 2);
+  line(c, 138, 132, 170, 126, '#2b2d42', 2); line(c, 138, 140, 170, 146, '#2b2d42', 2);
+})();
+
+// ---------- 2. Dog ----------
+(function () {
+  const c = ctx('c2');
+  rect(c, 0, 0, 200, 200, '#dff3ff');
+  oval(c, 52, 95, 20, 42, '#7a4a2b', 0.25);
+  oval(c, 148, 95, 20, 42, '#7a4a2b', -0.25);
+  oval(c, 100, 105, 52, 58, '#d9a066');
+  poly(c, [[100, 52], [88, 85], [112, 85]], '#fff');
+  oval(c, 100, 132, 30, 24, '#fbe7c6');
+  oval(c, 100, 120, 12, 8, '#2b2d42');
+  eyes(c, 98, 25, 8, '#2b2d42');
+  rect(c, 92, 142, 16, 22, '#ff7b9c', 8);
+  line(c, 100, 128, 100, 142, '#2b2d42', 3);
+  c.strokeStyle = '#2b2d42'; c.lineWidth = 3; c.lineCap = 'round';
+  c.beginPath(); c.arc(90, 142, 10, 0.1, Math.PI * 0.5); c.stroke();
+  c.beginPath(); c.arc(110, 142, 10, Math.PI * 0.5, Math.PI - 0.1); c.stroke();
+})();
+
+// ---------- 3. Bunny ----------
+(function () {
+  const c = ctx('c3');
+  rect(c, 0, 0, 200, 200, '#ffe9f0');
+  oval(c, 72, 52, 16, 44, '#f3f3f3', -0.12); oval(c, 128, 52, 16, 44, '#f3f3f3', 0.12);
+  oval(c, 72, 54, 8, 32, '#ffb3c1', -0.12); oval(c, 128, 54, 8, 32, '#ffb3c1', 0.12);
+  circle(c, 100, 122, 54, '#f3f3f3');
+  eyes(c, 115, 24, 7, '#2b2d42');
+  circle(c, 66, 135, 9, '#ffc1cf'); circle(c, 134, 135, 9, '#ffc1cf');
+  poly(c, [[93, 128], [107, 128], [100, 137]], '#ff7b9c');
+  line(c, 100, 137, 100, 145, '#2b2d42', 2);
+  c.strokeStyle = '#2b2d42'; c.lineWidth = 2.5; c.lineCap = 'round';
+  c.beginPath(); c.arc(92, 145, 8, 0, Math.PI * 0.8); c.stroke();
+  c.beginPath(); c.arc(108, 145, 8, Math.PI * 0.2, Math.PI); c.stroke();
+  rect(c, 94, 152, 12, 12, '#fff', 3); line(c, 100, 153, 100, 164, '#d9d9d9', 1.5);
+})();
+
+// ---------- 4. Bear ----------
+(function () {
+  const c = ctx('c4');
+  rect(c, 0, 0, 200, 200, '#e4f5de');
+  circle(c, 55, 62, 22, '#8a5a44'); circle(c, 145, 62, 22, '#8a5a44');
+  circle(c, 55, 62, 11, '#d9a066'); circle(c, 145, 62, 11, '#d9a066');
+  circle(c, 100, 110, 58, '#8a5a44');
+  oval(c, 100, 128, 28, 22, '#d9a066');
+  oval(c, 100, 120, 11, 8, '#2b2d42');
+  eyes(c, 98, 25, 7, '#2b2d42');
+  line(c, 100, 126, 100, 138, '#2b2d42', 3);
+  c.strokeStyle = '#2b2d42'; c.lineWidth = 3; c.lineCap = 'round';
+  c.beginPath(); c.arc(92, 138, 8, 0, Math.PI * 0.8); c.stroke();
+  c.beginPath(); c.arc(108, 138, 8, Math.PI * 0.2, Math.PI); c.stroke();
+})();
+
+// ---------- 5. Fox ----------
+(function () {
+  const c = ctx('c5');
+  rect(c, 0, 0, 200, 200, '#fff0d9');
+  poly(c, [[100, 172], [30, 100], [36, 36], [80, 72], [120, 72], [164, 36], [170, 100]], '#ee7b30');
+  poly(c, [[44, 52], [70, 76], [48, 84]], '#3d2b2b'); poly(c, [[156, 52], [130, 76], [152, 84]], '#3d2b2b');
+  poly(c, [[100, 172], [32, 104], [74, 130], [100, 140]], '#fff');
+  poly(c, [[100, 172], [168, 104], [126, 130], [100, 140]], '#fff');
+  oval(c, 76, 98, 8, 11, '#2b2d42', 0.3); oval(c, 124, 98, 8, 11, '#2b2d42', -0.3);
+  circle(c, 79, 94, 3, '#fff'); circle(c, 121, 94, 3, '#fff');
+  circle(c, 100, 164, 8, '#2b2d42');
+  line(c, 100, 150, 100, 158, '#2b2d42', 3);
+})();
+
+// ---------- 6. Panda ----------
+(function () {
+  const c = ctx('c6');
+  rect(c, 0, 0, 200, 200, '#dff7ee');
+  circle(c, 55, 58, 22, '#2b2d42'); circle(c, 145, 58, 22, '#2b2d42');
+  circle(c, 100, 110, 58, '#fff');
+  oval(c, 76, 100, 15, 21, '#2b2d42', 0.5); oval(c, 124, 100, 15, 21, '#2b2d42', -0.5);
+  circle(c, 78, 100, 6, '#fff'); circle(c, 122, 100, 6, '#fff');
+  circle(c, 79, 101, 3, '#2b2d42'); circle(c, 121, 101, 3, '#2b2d42');
+  oval(c, 100, 124, 11, 8, '#2b2d42');
+  line(c, 100, 130, 100, 140, '#2b2d42', 3);
+  c.strokeStyle = '#2b2d42'; c.lineWidth = 3; c.lineCap = 'round';
+  c.beginPath(); c.arc(91, 140, 9, 0, Math.PI * 0.8); c.stroke();
+  c.beginPath(); c.arc(109, 140, 9, Math.PI * 0.2, Math.PI); c.stroke();
+})();
+
+// ---------- 7. Pig ----------
+(function () {
+  const c = ctx('c7');
+  rect(c, 0, 0, 200, 200, '#fff3d6');
+  poly(c, [[50, 85], [52, 38], [92, 62]], '#f48fa6'); poly(c, [[150, 85], [148, 38], [108, 62]], '#f48fa6');
+  circle(c, 100, 110, 58, '#ffb3c1');
+  eyes(c, 96, 28, 7, '#2b2d42');
+  oval(c, 100, 128, 30, 22, '#f48fa6');
+  oval(c, 89, 128, 5, 8, '#c75b78'); oval(c, 111, 128, 5, 8, '#c75b78');
+  circle(c, 62, 125, 8, '#ff9fb4'); circle(c, 138, 125, 8, '#ff9fb4');
+  c.strokeStyle = '#c75b78'; c.lineWidth = 3; c.lineCap = 'round';
+  c.beginPath(); c.arc(100, 150, 12, 0.2, Math.PI - 0.2); c.stroke();
+})();
+
+// ---------- 8. Owl ----------
+(function () {
+  const c = ctx('c8');
+  rect(c, 0, 0, 200, 200, '#e0e4ff');
+  poly(c, [[40, 90], [44, 30], [84, 52]], '#8a5a44'); poly(c, [[160, 90], [156, 30], [116, 52]], '#8a5a44');
+  oval(c, 100, 110, 60, 64, '#8a5a44');
+  oval(c, 100, 150, 38, 30, '#e8c89a');
+  circle(c, 74, 98, 26, '#fff7e0'); circle(c, 126, 98, 26, '#fff7e0');
+  circle(c, 74, 98, 18, '#ffd166'); circle(c, 126, 98, 18, '#ffd166');
+  circle(c, 74, 98, 10, '#2b2d42'); circle(c, 126, 98, 10, '#2b2d42');
+  circle(c, 78, 94, 3.5, '#fff'); circle(c, 130, 94, 3.5, '#fff');
+  poly(c, [[90, 118], [110, 118], [100, 140]], '#f4902e');
+  c.strokeStyle = '#c9a26b'; c.lineWidth = 3; c.lineCap = 'round';
+  [[84, 152], [100, 152], [116, 152], [92, 166], [108, 166]].forEach(p => {
+    c.beginPath(); c.arc(p[0], p[1], 7, 0.2, Math.PI - 0.2); c.stroke();
+  });
+})();
+</script>
+</body>
+</html>
